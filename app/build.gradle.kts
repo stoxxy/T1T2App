@@ -32,6 +32,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -63,6 +66,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.kotlinx.serialization)
 

@@ -3,7 +3,7 @@ package com.example.t1t2app.quoteoftheday.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.t1t2app.quoteoftheday.data.Quote
-import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayApi
+import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuoteOfTheDayViewModel @Inject constructor(
-    private val quoteOfTheDayApi: QuoteOfTheDayApi,
+    private val quoteOfTheDayRepository: QuoteOfTheDayRepository,
     private val dispatcher: CoroutineDispatcher
 ): ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
@@ -35,7 +35,7 @@ class QuoteOfTheDayViewModel @Inject constructor(
                 // Prevent PullToRefresh indicator from getting stuck.
                 delay(10)
                 _uiState.update { it.copy(
-                    result = Result.Success(withContext(dispatcher) { quoteOfTheDayApi.getQuotes() })) }
+                    result = Result.Success(withContext(dispatcher) { quoteOfTheDayRepository.getQuotes() })) }
             } catch (e: Exception) {
                 _uiState.update { it.copy(result = Result.Failure(e.message ?: e.toString())) }
             }

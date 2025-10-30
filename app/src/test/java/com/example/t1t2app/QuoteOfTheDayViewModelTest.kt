@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import com.example.t1t2app.quoteoftheday.data.Quote
 import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayApi
+import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayRepository
 import com.example.t1t2app.quoteoftheday.presentation.QuoteOfTheDayViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -32,7 +33,7 @@ class QuoteOfTheDayViewModelTest {
     val hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var quoteOfTheDayApi: QuoteOfTheDayApi
+    lateinit var quoteOfTheDayRepository: QuoteOfTheDayRepository
     lateinit var viewModel: QuoteOfTheDayViewModel
 
     @Before
@@ -40,7 +41,7 @@ class QuoteOfTheDayViewModelTest {
         hiltRule.inject()
 
         viewModel = QuoteOfTheDayViewModel(
-            quoteOfTheDayApi = quoteOfTheDayApi,
+            quoteOfTheDayRepository = quoteOfTheDayRepository,
             dispatcher = dispatcherRule.dispatcher
         )
     }
@@ -51,9 +52,7 @@ class QuoteOfTheDayViewModelTest {
             Quote(quote = "Test quote 1", author = "Author 1"),
             Quote(quote = "Test quote 2", author = "Author 2")
         )
-        coEvery { quoteOfTheDayApi.getQuotes() } returns fakeQuotes
-
-        advanceUntilIdle()
+        coEvery { quoteOfTheDayRepository.getQuotes() } returns fakeQuotes
 
         viewModel.uiState.test {
             assertEquals(QuoteOfTheDayViewModel.Result.InProgress, awaitItem().result)
@@ -66,9 +65,7 @@ class QuoteOfTheDayViewModelTest {
     @Test
     fun getQuote_error_uiStateUpdatedWithError() = runTest {
         val exception = Exception("Test exception")
-        coEvery { quoteOfTheDayApi.getQuotes() } throws exception
-
-        advanceUntilIdle()
+        coEvery { quoteOfTheDayRepository.getQuotes() } throws exception
 
         viewModel.uiState.test {
             assertEquals(QuoteOfTheDayViewModel.Result.InProgress, awaitItem().result)

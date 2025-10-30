@@ -1,7 +1,7 @@
 package com.example.t1t2app
 
 import com.example.t1t2app.modules.QuoteOfTheDayApiModule
-import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayApi
+import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -17,5 +17,5 @@ import javax.inject.Singleton
 object FakeQuoteOfTheDayApiModule {
     @Singleton
     @Provides
-    fun provideMockedQuoteOfTheDayImpl() = mockk<QuoteOfTheDayApi>(relaxed = true)
+    fun provideMockedQuoteOfTheDayRepository() = mockk<QuoteOfTheDayRepository>(relaxed = true)
 }
