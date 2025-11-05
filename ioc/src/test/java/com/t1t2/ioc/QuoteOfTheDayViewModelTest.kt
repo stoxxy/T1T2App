@@ -3,7 +3,6 @@ package com.example.t1t2app
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import com.example.t1t2app.quoteoftheday.data.Quote
-import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayApi
 import com.example.t1t2app.quoteoftheday.domain.QuoteOfTheDayRepository
 import com.example.t1t2app.quoteoftheday.presentation.QuoteOfTheDayViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -12,7 +11,6 @@ import dagger.hilt.android.testing.HiltTestApplication
 import io.mockk.coEvery
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule

@@ -17,7 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import retrofit2.Retrofit
-import retrofit2.create
 
 class QuoteOfTheDayServiceTest {
     @get: Rule
